@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Fury - Plane Shooter Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Game Header -->
+        <header class="game-header">
+            <h1><i class="fas fa-fighter-jet"></i> SKY FURY</h1>
+            <div class="game-info">
+                <div class="score-display">
+                    <span class="label">SCORE</span>
+                    <span id="score" class="value">0</span>
+                </div>
+                <div class="health-display">
+                    <span class="label">HEALTH</span>
+                    <div class="health-bar">
+                        <div id="health-fill" class="health-fill"></div>
+                    </div>
+                    <span id="health-text" class="value">100%</span>
+                </div>
+                <div class="level-display">
+                    <span class="label">LEVEL</span>
+                    <span id="level" class="value">1</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Game Area -->
+        <div class="game-container">
+            <!-- Game Canvas -->
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+            
+            <!-- Game Over Screen -->
+            <div id="gameOverScreen" class="overlay-screen">
+                <div class="overlay-content">
+                    <h2><i class="fas fa-skull-crossbones"></i> GAME OVER</h2>
+                    <p>Your Score: <span id="finalScore">0</span></p>
+                    <div class="high-score-input" id="highScoreInput">
+                        <input type="text" id="playerName" placeholder="Enter your name" maxlength="20">
+                        <button onclick="saveHighScore()">Save Score</button>
+                    </div>
+                    <button onclick="restartGame()" class="btn-restart">
+                        <i class="fas fa-redo"></i> PLAY AGAIN
+                    </button>
+                </div>
+            </div>
+
+            <!-- Start Screen -->
+            <div id="startScreen" class="overlay-screen">
+                <div class="overlay-content">
+                    <h2><i class="fas fa-rocket"></i> SKY FURY</h2>
+                    <div class="controls">
+                        <h3><i class="fas fa-gamepad"></i> CONTROLS</h3>
+                        <p><i class="fas fa-arrow-left"></i> <i class="fas fa-arrow-right"></i> Move Left/Right</p>
+                        <p><i class="fas fa-arrow-up"></i> <i class="fas fa-arrow-down"></i> Move Up/Down</p>
+                        <p><span class="space-key">SPACEBAR</span> Shoot</p>
+                        <p><span class="key">P</span> Pause/Resume</p>
+                    </div>
+                    <button onclick="startGame()" class="btn-start">
+                        <i class="fas fa-play"></i> START MISSION
+                    </button>
+                    <div class="powerup-info">
+                        <h4>POWER-UPS</h4>
+                        <div class="powerup-icons">
+                            <div class="powerup-icon"><i class="fas fa-heart"></i> Health</div>
+                            <div class="powerup-icon"><i class="fas fa-bolt"></i> Rapid Fire</div>
+                            <div class="powerup-icon"><i class="fas fa-shield-alt"></i> Shield</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pause Screen -->
+            <div id="pauseScreen" class="overlay-screen">
+                <div class="overlay-content">
+                    <h2><i class="fas fa-pause"></i> GAME PAUSED</h2>
+                    <button onclick="togglePause()" class="btn-resume">
+                        <i class="fas fa-play"></i> RESUME
+                    </button>
+                </div>
+            </div>
+
+            <!-- High Scores Panel -->
+            <div class="side-panel">
+                <h3><i class="fas fa-trophy"></i> HIGH SCORES</h3>
+                <div id="highScores" class="scores-list">
+                    <p>Loading scores...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Footer -->
+        <footer class="game-footer">
+            <div class="powerup-status">
+                <div id="rapidFireStatus" class="powerup-active">
+                    <i class="fas fa-bolt"></i> RAPID FIRE: <span>0s</span>
+                </div>
+                <div id="shieldStatus" class="powerup-active">
+                    <i class="fas fa-shield-alt"></i> SHIELD: <span>0s</span>
+                </div>
+            </div>
+            <div class="game-stats">
+                <div class="stat">
+                    <i class="fas fa-crosshairs"></i> ENEMIES DESTROYED: <span id="enemiesDestroyed">0</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-clock"></i> SURVIVAL TIME: <span id="survivalTime">0s</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+</body>
+</html>
